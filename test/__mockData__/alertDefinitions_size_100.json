@@ -1,0 +1,24 @@
+[
+  {
+    "id": "172996",
+    "creationDate": 1647358698000,
+    "name": "Test Alert Definition 2",
+    "message": "",
+    "description": "Just a description",
+    "categoryId": "1184",
+    "subcategory": "lib.my.horaciogouveia.APIClientTest",
+    "subcategoryId": "2818",
+    "isActive": true,
+    "isFavorite": false,
+    "isAlertChain": false,
+    "alertCorrelationContext": {
+      "id": "28492",
+      "nameId": "my.alert.horaciogouveia.Test_Alert_Definition_2",
+      "ownerEmail": "horacio.gouveia@devo.com",
+      "querySourceCode": "from siem.logtrust.web.activity group every 1h select count() as c where c > 10",
+      "priority": 1,
+      "correlationTrigger": {}
+    },
+    "actionPolicyId": []
+  }
+]

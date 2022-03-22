@@ -1,0 +1,12 @@
+coverage
+dist
+node_modules
+reports
+tmp
+
+.vscode
+.idea
+.DS_Store
+
+package-lock.json
+yarn.lock
