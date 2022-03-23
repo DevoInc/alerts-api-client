@@ -23,6 +23,20 @@ Use one of those ways to use the Alerts API Client.
 npm install --save @devoinc/alerts-api-client
 ```
 
+**Install from Github**
+
+First, install _typescript_:
+
+```js
+npm install --save-dev typescript
+```
+
+Install the client:
+
+```js
+npm install --save https://github.com/DevoInc/alerts-api-client
+```
+
 **Install from source**
 
 - Download the package from the GitHub repository
