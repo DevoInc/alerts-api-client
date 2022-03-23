@@ -8,7 +8,8 @@
     "test": "jest --coverage",
     "eslint": "eslint . --ext .ts",
     "docs": "typedoc --out docs ./src",
-    "stryker": "npx stryker run"
+    "stryker": "npx stryker run",
+    "postinstall": "npm run build"
   },
   "repository": {
     "type": "git",
