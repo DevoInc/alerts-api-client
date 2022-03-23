@@ -96,5 +96,5 @@ const alerts = await alertsAPIClient.alert.get();
 
 ## Documentation and usage
 
-The documentation of this client is available at GitHub.
+The documentation of this client is available at [GitHub](https://devoinc.github.io/alerts-api-client/).
 Here you can find which methods are available for _alert_ and _alertDefinition_.
