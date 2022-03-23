@@ -66,7 +66,7 @@ export class Alert extends ClientBase {
       })
       .then((_response: Response) => {
         const customMessages = {
-          400: 'Alerts definition error.',
+          400: 'Alerts API error.',
           default: 'An unexpected server error occurred.',
         };
         return this.proccessResponse(_response, customMessages);

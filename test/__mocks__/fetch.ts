@@ -10,17 +10,27 @@ export class Fetch {
         .replace(/\?/g, '_')
         .replace(/=/g, '_')
         .replace(/&/g, '_');
-
-      console.log(operation);
+      const hasError = url.lastIndexOf('/error/');
       fs.readFile(
         `./test/__mockData__/${operation}.json`,
         'utf8',
         (err, data) => {
-          if (err) reject(err);
-          resolve({
-            status: 200,
-            text: () => Promise.resolve(data),
-          });
+          if (err || hasError > 0) {
+            if (hasError > 0) {
+              const errorValue = url.substring(hasError + 7, hasError + 10);
+              resolve({
+                status: parseInt(errorValue),
+                text: () => Promise.resolve('Mock error'),
+              });
+            } else {
+              reject(err);
+            }
+          } else {
+            resolve({
+              status: 200,
+              text: () => Promise.resolve(data),
+            });
+          }
         }
       );
     });
