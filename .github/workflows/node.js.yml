@@ -39,7 +39,7 @@ jobs:
 
       - name: Run test
         run: npm run test
-        uses: actions/upload-artifact@v2 # upload test results
+      - uses: actions/upload-artifact@v2 # upload test results
         if: success() || failure() # run this step even if previous step failed
         with:
           name: test-results
@@ -47,7 +47,7 @@ jobs:
 
       - name: Run stryker
         run: npm run stryker
-        uses: actions/upload-artifact@v2 # upload test results
+      - uses: actions/upload-artifact@v2 # upload test results
         if: success() || failure() # run this step even if previous step failed
         with:
           name: stryker-results
