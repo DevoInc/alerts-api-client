@@ -32,7 +32,7 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-        run: npm run build --if-present
+        # run: npm run build --if-present
 
       - name: Run style check
         run: npm run eslint
