@@ -1,1 +1,2 @@
-export { Alert, AlertDefinition, AlertsAPIClient } from './client';
+export * from './clients/alertsClient';
+ 

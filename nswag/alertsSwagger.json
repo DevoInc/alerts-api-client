@@ -1,0 +1,2012 @@
+{
+    "openapi" : "3.0.1",
+    "info" : {
+      "title" : "Devo REST Alerts API",
+      "version": 1,
+      "description" : "To use this service, you have to use the standAloneTokento pass the authorization filters",
+      "termsOfService" : "https://devo.com/terms/",
+      "contact" : {
+        "email" : "security@devo.com"
+      },
+      "license" : {
+        "name" : "Devo License",
+        "url" : "https://devo.com"
+      }
+    },
+    "paths" : {
+      "/v1/comments/add" : {
+        "post" : {
+          "tags" : [ "Alert Comments" ],
+          "summary" : "Add Alert comment",
+          "description" : "Registers a new Alert comment",
+          "operationId" : "addComment",
+          "requestBody" : {
+            "description" : "Add comment to one alert ",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AlertCommentSecOps"
+                }
+              }
+            },
+            "required" : true
+          },
+          "responses" : {
+            "200" : {
+              "content" : {
+                "application/json" : {
+                  "schema" : {
+                    "type" : "boolean"
+                  }
+                }
+              }
+            },
+            "400" : {
+              "description" : "Alert comment error"
+            }
+          },
+          "security" : [ {
+            "standAloneToken" : [ ]
+          } ]
+        }
+      },
+      "/v1/comments/bulk/add" : {
+        "post" : {
+          "tags" : [ "Alert Comments" ],
+          "summary" : "Add comment to multiple Alerts",
+          "description" : "Adds the same comment to multiple Alerts",
+          "operationId" : "addComments",
+          "requestBody" : {
+            "description" : "Comment to add to several alert ids",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AlertCommentSecOpsBulk"
+                }
+              }
+            },
+            "required" : true
+          },
+          "responses" : {
+            "200" : {
+              "content" : {
+                "application/json" : {
+                  "schema" : {
+                    "type" : "array",
+                    "items" : {
+                      "type" : "string"
+                    }
+                  }
+                }
+              }
+            },
+            "400" : {
+              "description" : "Alert comments error"
+            }
+          },
+          "security" : [ {
+            "standAloneToken" : [ ]
+          } ]
+        }
+      },
+      "/v1/comments/delete" : {
+        "delete" : {
+          "tags" : [ "Alert Comments" ],
+          "summary" : "Delete Alert comment",
+          "description" : "Removes a comment from an Alert",
+          "operationId" : "deleteComment",
+          "requestBody" : {
+            "description" : "List of ID comments to delete ",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "integer",
+                    "format" : "int32"
+                  }
+                }
+              }
+            },
+            "required" : true
+          },
+          "responses" : {
+            "200" : {
+              "content" : {
+                "application/json" : {
+                  "schema" : {
+                    "type" : "boolean"
+                  }
+                }
+              }
+            },
+            "400" : {
+              "description" : "Invalid parameters"
+            }
+          },
+          "security" : [ {
+            "standAloneToken" : [ ]
+          } ]
+        }
+      },
+      "/v1/comments/list" : {
+        "post" : {
+          "tags" : [ "Alert Comments" ],
+          "summary" : "Get all Alert comments",
+          "description" : "Returns a list of Alert comments",
+          "operationId" : "getList",
+          "requestBody" : {
+            "description" : "Alert ID lists ",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "integer",
+                    "format" : "int32"
+                  }
+                }
+              }
+            },
+            "required" : true
+          },
+          "responses" : {
+            "200" : {
+              "content" : {
+                "application/json" : {
+                  "schema" : {
+                    "type" : "array",
+                    "items" : {
+                      "$ref" : "#/components/schemas/AlertComments"
+                    }
+                  }
+                }
+              }
+            },
+            "400" : {
+              "description" : "Alert comment error"
+            }
+          },
+          "security" : [ {
+            "standAloneToken" : [ ]
+          } ]
+        }
+      },
+      "/v1/comments/update" : {
+        "put" : {
+          "tags" : [ "Alert Comments" ],
+          "summary" : "Update Alert comment",
+          "description" : "Updates the comment from a specific Alert",
+          "operationId" : "updateComment",
+          "parameters" : [ {
+            "name" : "commentId",
+            "in" : "query",
+            "description" : "Comment id",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "requestBody" : {
+            "description" : "Updated comment",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AlertCommentSecOps"
+                }
+              }
+            },
+            "required" : true
+          },
+          "responses" : {
+            "200" : {
+              "content" : {
+                "application/json" : {
+                  "schema" : {
+                    "type" : "boolean"
+                  }
+                }
+              }
+            },
+            "400" : {
+              "description" : "Invalid parameters"
+            }
+          },
+          "security" : [ {
+            "standAloneToken" : [ ]
+          } ]
+        }
+      },
+      "/v1/comments/bulk/update" : {
+        "put" : {
+          "tags" : [ "Alert Comments" ],
+          "summary" : "Update bulk Alert comments",
+          "description" : "Update alert comments with the same comment content",
+          "operationId" : "updateComments",
+          "requestBody" : {
+            "description" : "Bulk comment update resource",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AlertCommentSecOpsBulkUpdate"
+                }
+              }
+            },
+            "required" : true
+          },
+          "responses" : {
+            "200" : {
+              "content" : {
+                "application/json" : {
+                  "schema" : {
+                    "type" : "string"
+                  }
+                }
+              }
+            },
+            "400" : {
+              "description" : "Invalid parameters"
+            }
+          },
+          "security" : [ {
+            "standAloneToken" : [ ]
+          } ]
+        }
+      },
+      "/v1/alerts/get" : {
+        "get" : {
+          "tags" : [ "Alerts" ],
+          "summary" : "Get Alert without context",
+          "description" : "Get Alert by id without context",
+          "operationId" : "get",
+          "parameters" : [ {
+            "name" : "id",
+            "in" : "query",
+            "description" : "Alert ID",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "tags",
+            "in" : "query",
+            "description" : "If the parameter exists and the value is TRUE all the alert tags will be included in the response.",
+            "schema" : {
+              "type" : "boolean",
+              "default" : true
+            }
+          }, {
+            "name" : "annotations",
+            "in" : "query",
+            "description" : "If the parameter exists and the value is TRUE all the alert annotations will be included in the response.",
+            "schema" : {
+              "type" : "boolean",
+              "default" : true
+            }
+          } ],
+          "responses" : {
+            "200" : {
+              "content" : {
+                "application/json" : {
+                  "schema" : {
+                    "$ref" : "#/components/schemas/Alert"
+                  }
+                }
+              }
+            },
+            "400" : {
+              "description" : "There are no matching alerts for this ID"
+            }
+          },
+          "security" : [ {
+            "standAloneToken" : [ ]
+          } ]
+        }
+      },
+      "/v1/alerts/list" : {
+        "get" : {
+          "tags" : [ "Alerts" ],
+          "summary" : "Get Alerts",
+          "description" : "Get Alert list without context",
+          "operationId" : "getListByCriterias",
+          "parameters" : [ {
+            "name" : "limit",
+            "in" : "query",
+            "description" : "The limit, max number of elements returned",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "offset",
+            "in" : "query",
+            "description" : "The offset, start element in the element number",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "from",
+            "in" : "query",
+            "description" : "The date from in epoch time,with milliseconds obtain from new Date(Long.parseLong(from))",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "to",
+            "in" : "query",
+            "description" : "The date to in epoch time,with milliseconds,obtain from new Date(Long.parseLong(from))",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "orderby",
+            "in" : "query",
+            "description" : "Field to order, must be:\nid, \ndomain,\npriority,\ncontext,\ncategory,\nsrcPort,\nsrcIp,\nsrcHost,\ndstIp,\ndstPort,\ndstHost,\nprotocol,\nusername,\napplication,\nengine,\nextraData,\nstatus,\nack_status_date,\ncreateDate,\nupdateDate.",
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "orderasc",
+            "in" : "query",
+            "description" : "Order Ascending",
+            "schema" : {
+              "type" : "boolean"
+            }
+          }, {
+            "name" : "showAll",
+            "in" : "query",
+            "description" : "Obtain all (false positive and close status included) Default:False",
+            "schema" : {
+              "type" : "boolean"
+            }
+          } ],
+          "responses" : {
+            "200" : {
+              "content" : {
+                "application/json" : {
+                  "schema" : {
+                    "type" : "array",
+                    "items" : {
+                      "$ref" : "#/components/schemas/AlertExtended"
+                    }
+                  }
+                }
+              }
+            },
+            "400" : {
+              "description" : "There are no matching alerts for this period"
+            }
+          },
+          "security" : [ {
+            "standAloneToken" : [ ]
+          } ]
+        }
+      },
+      "/v1/alerts/listOverview" : {
+        "get" : {
+          "tags" : [ "Alerts" ],
+          "summary" : "Get Alert Statistics",
+          "description" : "Get statistics from Alerts with estimations",
+          "operationId" : "getListByCriteriasOverview",
+          "parameters" : [ {
+            "name" : "showAll",
+            "in" : "query",
+            "description" : "Obtain all (false positive and close status included) Default:False",
+            "schema" : {
+              "type" : "boolean"
+            }
+          } ],
+          "responses" : {
+            "200" : {
+              "content" : {
+                "application/json" : {
+                  "schema" : {
+                    "type" : "string"
+                  }
+                }
+              }
+            },
+            "400" : {
+              "description" : "Invalid parameters"
+            }
+          },
+          "deprecated" : true,
+          "security" : [ {
+            "standAloneToken" : [ ]
+          } ]
+        }
+      },
+      "/v1/alerts/statistics" : {
+        "get" : {
+          "tags" : [ "Alerts" ],
+          "summary" : "Get Alert statistics",
+          "description" : "Get statistics form Alerts",
+          "operationId" : "getStatistics",
+          "parameters" : [ {
+            "name" : "hours",
+            "in" : "query",
+            "description" : "Hours back to obtain data",
+            "schema" : {
+              "type" : "integer",
+              "format" : "int32"
+            }
+          }, {
+            "name" : "from",
+            "in" : "query",
+            "description" : "From to obtain data",
+            "schema" : {
+              "type" : "integer",
+              "format" : "int64"
+            }
+          }, {
+            "name" : "type",
+            "in" : "query",
+            "description" : "Type of result, may be 'raw', 'funnel, 'list'",
+            "schema" : {
+              "type" : "string",
+              "default" : "raw"
+            }
+          }, {
+            "name" : "filterName",
+            "in" : "query",
+            "description" : "filter by name context",
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "showAll",
+            "in" : "query",
+            "description" : "Obtain all (false positive and close status included) Default:False",
+            "schema" : {
+              "type" : "boolean"
+            }
+          } ],
+          "responses" : {
+            "200" : {
+              "content" : {
+                "application/json" : {
+                  "schema" : {
+                    "type" : "array",
+                    "items" : {
+                      "$ref" : "#/components/schemas/FunnelStatistics"
+                    }
+                  }
+                }
+              }
+            },
+            "400" : {
+              "description" : "Error in parameters"
+            }
+          },
+          "security" : [ {
+            "standAloneToken" : [ ]
+          } ]
+        }
+      },
+      "/v1/alerts/listStatus" : {
+        "get" : {
+          "tags" : [ "Alerts" ],
+          "summary" : "Get Alert statuses",
+          "description" : "Get Alert status in a Map<Long, Integer> with key=alertID and value=Status",
+          "operationId" : "listStatus",
+          "parameters" : [ {
+            "name" : "from",
+            "in" : "query",
+            "description" : "The date from in epoch time, with miliseconds. Default value 24 hours before petition",
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "responses" : {
+            "200" : {
+              "content" : {
+                "application/json" : {
+                  "schema" : {
+                    "type" : "string"
+                  }
+                }
+              }
+            },
+            "400" : {
+              "description" : "There are no matching alerts for this period"
+            }
+          },
+          "security" : [ {
+            "standAloneToken" : [ ]
+          } ]
+        }
+      },
+      "/v1/alerts/updateStatus" : {
+        "put" : {
+          "tags" : [ "Alerts" ],
+          "summary" : "Update Alert status",
+          "description" : "Update Alert status by ID",
+          "operationId" : "updateStatus",
+          "parameters" : [ {
+            "name" : "id",
+            "in" : "query",
+            "description" : "Alert ID",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "status",
+            "in" : "query",
+            "description" : "Alert status with this possible values:\nUNREAD = 0;       \nUPDATED = 1;      \nFALSE POSTIVE = 2;\nWATCHED = 100;    \nCLOSED = 300;     \nREMINDER = 500;   \nRECOVERY = 600;   \nANTI FLOOD = 700;   ",
+            "required" : true,
+            "schema" : {
+              "type" : "integer",
+              "format" : "int32"
+            }
+          } ],
+          "responses" : {
+            "200" : {
+              "content" : {
+                "application/json" : {
+                  "schema" : {
+                    "$ref" : "#/components/schemas/Alert"
+                  }
+                }
+              }
+            },
+            "400" : {
+              "description" : "There are no matching alerts for this ID"
+            }
+          },
+          "security" : [ {
+            "standAloneToken" : [ ]
+          } ]
+        }
+      },
+      "/v1/alerts/updateStatusList" : {
+        "put" : {
+          "tags" : [ "Alerts" ],
+          "summary" : "Update Alert status",
+          "description" : "Update a list of Alert statuses, based on a provided list of Alert IDs",
+          "operationId" : "updateStatusLists",
+          "parameters" : [ {
+            "name" : "status",
+            "in" : "query",
+            "description" : "Alert status with this possible values:\nUNREAD = 0;       \nUPDATED = 1;      \nFALSE POSTIVE = 2;\nWATCHED = 100;    \nCLOSED = 300;     \nREMINDER = 500;   \nRECOVERY = 600;   \nANTI FLOOD = 700;   ",
+            "required" : true,
+            "schema" : {
+              "type" : "integer",
+              "format" : "int32"
+            }
+          } ],
+          "requestBody" : {
+            "content" : {
+              "text/plain" : {
+              }
+            }
+          },
+          "responses" : {
+            "200" : {
+              "content" : {
+                "application/json" : {
+                  "schema" : {
+                    "type" : "object"
+                  }
+                }
+              }
+            },
+            "400" : {
+              "description" : "One of the alerts does not exist with this id. Return list of not updated alerts. Not returned ids was updated"
+            }
+          },
+          "security" : [ {
+            "standAloneToken" : [ ]
+          } ]
+        }
+      },
+      "/v1/alertDefinitions" : {
+        "get" : {
+          "tags" : [ "Alert Definitions" ],
+          "summary" : "Get Alert definitions",
+          "description" : "Returns a list of subscribed alerts. Empty list in case there is no alert subscription",
+          "operationId" : "getAlerts",
+          "parameters" : [ {
+            "name" : "nameFilter",
+            "in" : "query",
+            "description" : "Alert name to filter",
+            "required" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "idFilter",
+            "in" : "query",
+            "description" : "Alert id to filter",
+            "required" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "requestBody" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Pageable"
+                }
+              }
+            }
+          },
+          "responses" : {
+            "200" : {
+              "content" : {
+                "application/json" : {
+                  "schema" : {
+                    "type" : "array",
+                    "items" : {
+                      "$ref" : "#/components/schemas/AlertDefinition"
+                    }
+                  }
+                }
+              }
+            },
+            "400" : {
+              "description" : "Alerts definition error"
+            }
+          },
+          "security" : [ {
+            "standAloneToken" : [ ]
+          } ]
+        },
+        "put" : {
+          "tags" : [ "Alert Definitions" ],
+          "summary" : "Updated Alert definitions",
+          "description" : "Updates a specific Alert definition in Devo platform",
+          "operationId" : "putAlerts",
+          "requestBody" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AlertDefinition"
+                }
+              }
+            }
+          },
+          "responses" : {
+            "200" : {
+              "content" : {
+                "application/json" : {
+                  "schema" : {
+                    "$ref" : "#/components/schemas/AlertDefinition"
+                  }
+                }
+              }
+            },
+            "400" : {
+              "description" : "Alerts definition error"
+            },
+            "500" : {
+              "description" : "Unexpected internal error"
+            }
+          },
+          "security" : [ {
+            "standAloneToken" : [ ]
+          } ]
+        },
+        "post" : {
+          "tags" : [ "Alert Definitions" ],
+          "summary" : "Create Alert definition",
+          "description" : "Registers an Alert definition in Devo platform",
+          "operationId" : "postAlerts",
+          "requestBody" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AlertDefinition"
+                }
+              }
+            }
+          },
+          "responses" : {
+            "200" : {
+              "content" : {
+                "application/json" : {
+                  "schema" : {
+                    "$ref" : "#/components/schemas/AlertDefinition"
+                  }
+                }
+              }
+            },
+            "400" : {
+              "description" : "Alerts definition error"
+            },
+            "500" : {
+              "description" : "Unexpected internal error"
+            }
+          },
+          "security" : [ {
+            "standAloneToken" : [ ]
+          } ]
+        },
+        "delete" : {
+          "tags" : [ "Alert Definitions" ],
+          "summary" : "Delete Alert definitions",
+          "description" : "Deletes a group of Alert definitions which IDs have been passed as an argument",
+          "operationId" : "deleteAlerts",
+          "parameters" : [ {
+            "name" : "alertIds",
+            "in" : "query",
+            "description" : "List of alert definitions IDs",
+            "required" : true,
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "string"
+              }
+            }
+          } ],
+          "responses" : {
+            "200" : {
+              "description" : "Deletion was successful"
+            },
+            "400" : {
+              "description" : "Alerts definition error"
+            },
+            "500" : {
+              "description" : "Unexpected internal error"
+            }
+          },
+          "security" : [ {
+            "standAloneToken" : [ ]
+          } ]
+        }
+      },
+      "/v1/alertDefinitions/batch" : {
+        "put" : {
+          "tags" : [ "Alert Definitions" ],
+          "summary" : "Updates a batch of Alert definitions",
+          "description" : "Updates a batch of Alert definitions in Devo platform",
+          "operationId" : "putAlertsBatch",
+          "requestBody" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/AlertDefinition"
+                  }
+                }
+              }
+            }
+          },
+          "responses" : {
+            "200" : {
+              "content" : {
+                "application/json" : {
+                  "schema" : {
+                    "type" : "array",
+                    "items" : {
+                      "$ref" : "#/components/schemas/AlertDefinition"
+                    }
+                  }
+                }
+              }
+            },
+            "400" : {
+              "description" : "Alerts definition error"
+            },
+            "500" : {
+              "description" : "Unexpected internal error"
+            }
+          },
+          "security" : [ {
+            "standAloneToken" : [ ]
+          } ]
+        },
+        "post" : {
+          "tags" : [ "Alert Definitions" ],
+          "summary" : "Create batch of Alert definitions",
+          "description" : "Registers a batch of Alert definitions in Devo platform",
+          "operationId" : "postAlertsBatch",
+          "requestBody" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/AlertDefinition"
+                  }
+                }
+              }
+            }
+          },
+          "responses" : {
+            "200" : {
+              "content" : {
+                "application/json" : {
+                  "schema" : {
+                    "type" : "array",
+                    "items" : {
+                      "$ref" : "#/components/schemas/AlertDefinition"
+                    }
+                  }
+                }
+              }
+            },
+            "400" : {
+              "description" : "Alerts definition error"
+            },
+            "500" : {
+              "description" : "Unexpected internal error"
+            }
+          },
+          "security" : [ {
+            "standAloneToken" : [ ]
+          } ]
+        }
+      },
+      "/v1/alertDefinitions/status" : {
+        "put" : {
+          "tags" : [ "Alert Definitions" ],
+          "summary" : "Update Alert definition statuses",
+          "description" : "Updates a list of Alert definition statuses which IDs have been passed as an argument",
+          "operationId" : "putAlertStatus",
+          "parameters" : [ {
+            "name" : "alertIds",
+            "in" : "query",
+            "description" : "List of alert definitions IDs",
+            "required" : true,
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "string"
+              }
+            }
+          }, {
+            "name" : "enable",
+            "in" : "query",
+            "description" : "Enable/disable alert definitions",
+            "required" : true,
+            "schema" : {
+              "type" : "boolean"
+            }
+          } ],
+          "responses" : {
+            "200" : {
+              "content" : {
+                "application/json" : {
+                  "schema" : {
+                    "$ref" : "#/components/schemas/AlertSubscriptionUpdate"
+                  }
+                }
+              }
+            },
+            "400" : {
+              "description" : "Alerts definition error"
+            }
+          },
+          "security" : [ {
+            "standAloneToken" : [ ]
+          } ]
+        }
+      },
+      "/v1/tags" : {
+        "put" : {
+          "tags" : [ "Tags" ],
+          "summary" : "Assign Tag to Alert",
+          "description" : "Assigns a set of tags to a group of alerts",
+          "operationId" : "setTags",
+          "requestBody" : {
+            "description" : "Alert IDs and tags to be set to the alerts",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AlertTagsRequest"
+                }
+              }
+            },
+            "required" : true
+          },
+          "responses" : {
+            "200" : {
+              "content" : {
+                "application/json" : {
+                  "schema" : {
+                    "type" : "object"
+                  }
+                }
+              }
+            },
+            "400" : {
+              "description" : "Invalid parameters"
+            }
+          },
+          "security" : [ {
+            "standAloneToken" : [ ]
+          } ]
+        }
+      }
+    },
+    "components" : {
+      "schemas" : {
+        "AlertCommentSecOps" : {
+          "type" : "object",
+          "properties" : {
+            "elementId" : {
+              "type" : "string"
+            },
+            "commentType" : {
+              "type" : "string",
+              "enum" : [ "ALERT", "REPLY" ]
+            },
+            "commentMsg" : {
+              "type" : "string"
+            },
+            "commentTitle" : {
+              "type" : "string"
+            },
+            "validContent" : {
+              "type" : "boolean"
+            }
+          }
+        },
+        "AlertCommentSecOpsBulk" : {
+          "type" : "object",
+          "properties" : {
+            "elementIds" : {
+              "type" : "array",
+              "items" : {
+                "type" : "string"
+              }
+            },
+            "commentMsg" : {
+              "type" : "string"
+            },
+            "commentTitle" : {
+              "type" : "string"
+            },
+            "commentType" : {
+              "type" : "string",
+              "enum" : [ "ALERT", "REPLY" ]
+            }
+          }
+        },
+        "AlertComments" : {
+          "type" : "object",
+          "properties" : {
+            "idAlert" : {
+              "type" : "integer",
+              "format" : "int32"
+            },
+            "comments" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/components/schemas/Comment"
+              }
+            }
+          }
+        },
+        "Comment" : {
+          "type" : "object",
+          "properties" : {
+            "id" : {
+              "type" : "integer",
+              "format" : "int32"
+            },
+            "author" : {
+              "$ref" : "#/components/schemas/UserDomain"
+            },
+            "msg" : {
+              "type" : "string"
+            },
+            "ack" : {
+              "type" : "string"
+            },
+            "creationDate" : {
+              "type" : "string",
+              "format" : "date-time"
+            },
+            "updateDate" : {
+              "type" : "string",
+              "format" : "date-time"
+            },
+            "elementType" : {
+              "type" : "string"
+            },
+            "elementId" : {
+              "type" : "string"
+            },
+            "domain" : {
+              "$ref" : "#/components/schemas/Domain"
+            },
+            "title" : {
+              "type" : "string"
+            },
+            "status" : {
+              "type" : "string"
+            },
+            "task" : {
+              "type" : "boolean"
+            }
+          }
+        },
+        "Domain" : {
+          "type" : "object",
+          "properties" : {
+            "id" : {
+              "type" : "string"
+            },
+            "name" : {
+              "type" : "string"
+            },
+            "status" : {
+              "type" : "integer",
+              "format" : "int32"
+            },
+            "type" : {
+              "type" : "integer",
+              "format" : "int32"
+            },
+            "updateDate" : {
+              "type" : "string",
+              "format" : "date-time"
+            },
+            "creationDate" : {
+              "type" : "string",
+              "format" : "date-time"
+            },
+            "subscribed" : {
+              "type" : "integer",
+              "format" : "int32"
+            },
+            "daysLeft" : {
+              "type" : "integer",
+              "format" : "int32"
+            },
+            "showLanding" : {
+              "type" : "boolean"
+            },
+            "reseller" : {
+              "$ref" : "#/components/schemas/Reseller"
+            },
+            "groupId" : {
+              "type" : "integer",
+              "format" : "int32"
+            },
+            "alertsLastReseted" : {
+              "type" : "string",
+              "format" : "date-time"
+            }
+          }
+        },
+        "Reseller" : {
+          "type" : "object",
+          "properties" : {
+            "id" : {
+              "type" : "integer",
+              "format" : "int64"
+            },
+            "name" : {
+              "type" : "string"
+            },
+            "preferences" : {
+              "type" : "string"
+            },
+            "contactInformation" : {
+              "type" : "string"
+            },
+            "pricePlans" : {
+              "type" : "string"
+            },
+            "updateDate" : {
+              "type" : "string",
+              "format" : "date-time"
+            },
+            "creationDate" : {
+              "type" : "string",
+              "format" : "date-time"
+            },
+            "permPolicy" : {
+              "type" : "string"
+            },
+            "menuView" : {
+              "type" : "string"
+            },
+            "limits" : {
+              "type" : "string"
+            },
+            "groupId" : {
+              "type" : "integer",
+              "format" : "int32"
+            },
+            "webPreferences" : {
+              "type" : "string"
+            }
+          }
+        },
+        "User" : {
+          "type" : "object",
+          "properties" : {
+            "id" : {
+              "type" : "string"
+            },
+            "email" : {
+              "type" : "string"
+            },
+            "username" : {
+              "type" : "string"
+            },
+            "telephone" : {
+              "type" : "string"
+            },
+            "pwd" : {
+              "type" : "string"
+            },
+            "status" : {
+              "type" : "integer",
+              "format" : "int32"
+            },
+            "validation_token" : {
+              "type" : "string"
+            },
+            "defaultDomain" : {
+              "type" : "string"
+            },
+            "updateDate" : {
+              "type" : "string",
+              "format" : "date-time"
+            },
+            "creationDate" : {
+              "type" : "string",
+              "format" : "date-time"
+            },
+            "otpSecret" : {
+              "type" : "string"
+            },
+            "loginAttempts" : {
+              "type" : "integer",
+              "format" : "int32"
+            },
+            "recoveryAttempts" : {
+              "type" : "integer",
+              "format" : "int32"
+            }
+          }
+        },
+        "UserDomain" : {
+          "type" : "object",
+          "properties" : {
+            "id" : {
+              "type" : "integer",
+              "format" : "int32"
+            },
+            "user" : {
+              "$ref" : "#/components/schemas/User"
+            },
+            "domain" : {
+              "$ref" : "#/components/schemas/Domain"
+            },
+            "lastTimeLogged" : {
+              "type" : "string",
+              "format" : "date-time"
+            },
+            "status" : {
+              "type" : "integer",
+              "format" : "int32"
+            },
+            "creationDate" : {
+              "type" : "string",
+              "format" : "date-time"
+            },
+            "updateDate" : {
+              "type" : "string",
+              "format" : "date-time"
+            },
+            "pwd" : {
+              "type" : "string"
+            },
+            "validationToken" : {
+              "type" : "string"
+            },
+            "roleCustom" : {
+              "type" : "integer",
+              "format" : "int32"
+            },
+            "rolesCustom" : {
+              "type" : "array",
+              "items" : {
+                "type" : "integer",
+                "format" : "int32"
+              }
+            },
+            "externalId" : {
+              "type" : "string"
+            },
+            "owner" : {
+              "type" : "boolean"
+            },
+            "alertsLastVisited" : {
+              "type" : "string",
+              "format" : "date-time"
+            }
+          }
+        },
+        "AlertCommentSecOpsBulkUpdate" : {
+          "type" : "object",
+          "properties" : {
+            "idMap" : {
+              "type" : "object",
+              "additionalProperties" : {
+                "type" : "array",
+                "items" : {
+                  "type" : "integer",
+                  "format" : "int32"
+                }
+              }
+            },
+            "commentMsg" : {
+              "type" : "string"
+            },
+            "commentTitle" : {
+              "type" : "string"
+            },
+            "commentType" : {
+              "type" : "string",
+              "enum" : [ "ALERT", "REPLY" ]
+            }
+          }
+        },
+        "Alert" : {
+          "type" : "object",
+          "properties" : {
+            "id" : {
+              "type" : "integer",
+              "format" : "int64"
+            },
+            "domain" : {
+              "type" : "string"
+            },
+            "priority" : {
+              "type" : "number",
+              "format" : "double"
+            },
+            "context" : {
+              "type" : "string"
+            },
+            "category" : {
+              "type" : "string"
+            },
+            "srcPort" : {
+              "type" : "integer",
+              "format" : "int32"
+            },
+            "srcIp" : {
+              "type" : "string"
+            },
+            "srcHost" : {
+              "type" : "string"
+            },
+            "dstIp" : {
+              "type" : "string"
+            },
+            "dstPort" : {
+              "type" : "integer",
+              "format" : "int32"
+            },
+            "dstHost" : {
+              "type" : "string"
+            },
+            "protocol" : {
+              "type" : "string"
+            },
+            "username" : {
+              "type" : "string"
+            },
+            "application" : {
+              "type" : "string"
+            },
+            "engine" : {
+              "type" : "string"
+            },
+            "extraData" : {
+              "type" : "string"
+            },
+            "alertDate" : {
+              "type" : "string",
+              "format" : "date-time"
+            },
+            "status" : {
+              "type" : "integer",
+              "format" : "int32"
+            },
+            "ack_status_date" : {
+              "type" : "string",
+              "format" : "date-time"
+            },
+            "createDate" : {
+              "type" : "string",
+              "format" : "date-time"
+            },
+            "updateDate" : {
+              "type" : "string",
+              "format" : "date-time"
+            },
+            "scaled" : {
+              "type" : "boolean"
+            },
+            "digest" : {
+              "type" : "string"
+            },
+            "uniquedigest" : {
+              "type" : "string"
+            },
+            "contexto" : {
+              "$ref" : "#/components/schemas/Context"
+            },
+            "postAlertAction" : {
+              "type" : "string"
+            },
+            "contextLabel" : {
+              "type" : "string"
+            },
+            "contextSubscription" : {
+              "type" : "integer",
+              "format" : "int32"
+            },
+            "shouldSend" : {
+              "type" : "boolean"
+            },
+            "alertOwner" : {
+              "type" : "string"
+            },
+            "fullExtraData" : {
+              "type" : "string"
+            },
+            "alertLabel" : {
+              "type" : "string"
+            }
+          }
+        },
+        "Category" : {
+          "type" : "object",
+          "properties" : {
+            "id" : {
+              "type" : "integer",
+              "format" : "int32"
+            },
+            "name" : {
+              "type" : "string"
+            },
+            "owner" : {
+              "type" : "string"
+            },
+            "subCategories" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/components/schemas/SubCategory"
+              }
+            }
+          }
+        },
+        "Context" : {
+          "type" : "object",
+          "properties" : {
+            "id" : {
+              "type" : "integer",
+              "format" : "int32"
+            },
+            "pilotContextId" : {
+              "type" : "string",
+              "format" : "uuid"
+            },
+            "name" : {
+              "type" : "string"
+            },
+            "category" : {
+              "$ref" : "#/components/schemas/Category"
+            },
+            "subCategory" : {
+              "$ref" : "#/components/schemas/SubCategory"
+            },
+            "application_id" : {
+              "type" : "integer",
+              "format" : "int32"
+            },
+            "defaultParams" : {
+              "type" : "string"
+            },
+            "includefields" : {
+              "type" : "string"
+            },
+            "excludefields" : {
+              "type" : "string"
+            }
+          }
+        },
+        "SubCategory" : {
+          "type" : "object",
+          "properties" : {
+            "id" : {
+              "type" : "integer",
+              "format" : "int32"
+            },
+            "name" : {
+              "type" : "string"
+            },
+            "hasContext" : {
+              "type" : "boolean"
+            },
+            "alert_category_id" : {
+              "type" : "integer",
+              "format" : "int32"
+            },
+            "contextList" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/components/schemas/Context"
+              }
+            }
+          }
+        },
+        "AlertCorrelationContext" : {
+          "type" : "object",
+          "properties" : {
+            "id" : {
+              "type" : "string"
+            },
+            "nameId" : {
+              "type" : "string"
+            },
+            "ownerEmail" : {
+              "type" : "string"
+            },
+            "querySourceCode" : {
+              "type" : "string"
+            },
+            "priority" : {
+              "type" : "integer",
+              "format" : "int32"
+            },
+            "correlationTrigger" : {
+              "$ref" : "#/components/schemas/CorrelationTrigger"
+            }
+          }
+        },
+        "AlertDefinition" : {
+          "type" : "object",
+          "properties" : {
+            "id" : {
+              "type" : "string"
+            },
+            "creationDate" : {
+              "type" : "string",
+              "format" : "date-time"
+            },
+            "name" : {
+              "type" : "string"
+            },
+            "message" : {
+              "type" : "string"
+            },
+            "description" : {
+              "type" : "string"
+            },
+            "categoryId" : {
+              "type" : "string"
+            },
+            "subcategory" : {
+              "type" : "string"
+            },
+            "subcategoryId" : {
+              "type" : "string"
+            },
+            "isActive" : {
+              "type" : "boolean"
+            },
+            "isFavorite" : {
+              "type" : "boolean"
+            },
+            "isAlertChain" : {
+              "type" : "boolean"
+            },
+            "alertCorrelationContext" : {
+              "$ref" : "#/components/schemas/AlertCorrelationContext"
+            },
+            "actionPolicyId" : {
+              "type" : "array",
+              "items" : {
+                "type" : "string"
+              }
+            }
+          }
+        },
+        "AlertExtended" : {
+          "type" : "object",
+          "properties" : {
+            "id" : {
+              "type" : "integer",
+              "format" : "int64"
+            },
+            "domain" : {
+              "type" : "string"
+            },
+            "priority" : {
+              "type" : "number",
+              "format" : "double"
+            },
+            "context" : {
+              "type" : "string"
+            },
+            "category" : {
+              "type" : "string"
+            },
+            "srcPort" : {
+              "type" : "integer",
+              "format" : "int32"
+            },
+            "srcIp" : {
+              "type" : "string"
+            },
+            "srcHost" : {
+              "type" : "string"
+            },
+            "dstIp" : {
+              "type" : "string"
+            },
+            "dstPort" : {
+              "type" : "integer",
+              "format" : "int32"
+            },
+            "dstHost" : {
+              "type" : "string"
+            },
+            "protocol" : {
+              "type" : "string"
+            },
+            "username" : {
+              "type" : "string"
+            },
+            "application" : {
+              "type" : "string"
+            },
+            "engine" : {
+              "type" : "string"
+            },
+            "extraData" : {
+              "type" : "string"
+            },
+            "alertDate" : {
+              "type" : "string",
+              "format" : "date-time"
+            },
+            "status" : {
+              "type" : "integer",
+              "format" : "int32"
+            },
+            "ack_status_date" : {
+              "type" : "string",
+              "format" : "date-time"
+            },
+            "createDate" : {
+              "type" : "string",
+              "format" : "date-time"
+            },
+            "updateDate" : {
+              "type" : "string",
+              "format" : "date-time"
+            },
+            "scaled" : {
+              "type" : "boolean"
+            },
+            "digest" : {
+              "type" : "string"
+            },
+            "uniquedigest" : {
+              "type" : "string"
+            },
+            "contexto" : {
+              "$ref" : "#/components/schemas/Context"
+            },
+            "postAlertAction" : {
+              "type" : "string"
+            },
+            "contextLabel" : {
+              "type" : "string"
+            },
+            "contextSubscription" : {
+              "type" : "integer",
+              "format" : "int32"
+            },
+            "shouldSend" : {
+              "type" : "boolean"
+            },
+            "alertOwner" : {
+              "type" : "string"
+            },
+            "fullExtraData" : {
+              "type" : "string"
+            },
+            "alertType" : {
+              "type" : "string"
+            },
+            "alertMitreTactics" : {
+              "type" : "string"
+            },
+            "alertMitreTechniques" : {
+              "type" : "string"
+            },
+            "alertPriority" : {
+              "type" : "string"
+            },
+            "alertDefinition" : {
+              "$ref" : "#/components/schemas/AlertDefinition"
+            },
+            "allExtraDataFields" : {
+              "type" : "object",
+              "additionalProperties" : {
+                "type" : "string"
+              }
+            },
+            "tags" : {
+              "type" : "array",
+              "items" : {
+                "type" : "string"
+              }
+            },
+            "entities" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/components/schemas/Entity"
+              }
+            },
+            "commentsList" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/components/schemas/Comment"
+              }
+            },
+            "alertLabel" : {
+              "type" : "string"
+            }
+          }
+        },
+        "CorrelationTrigger" : {
+          "required" : [ "kind" ],
+          "type" : "object",
+          "properties" : {
+            "kind" : {
+              "type" : "string"
+            }
+          },
+          "discriminator" : {
+            "propertyName" : "kind"
+          }
+        },
+        "CorrelationTriggerDeviation" : {
+          "type" : "object",
+          "allOf" : [ {
+            "$ref" : "#/components/schemas/CorrelationTrigger"
+          }, {
+            "type" : "object",
+            "properties" : {
+              "threshold" : {
+                "type" : "integer",
+                "format" : "int32"
+              },
+              "absolute" : {
+                "type" : "boolean"
+              },
+              "aggregationColumn" : {
+                "type" : "array",
+                "items" : {
+                  "type" : "string"
+                }
+              }
+            }
+          } ]
+        },
+        "CorrelationTriggerEach" : {
+          "type" : "object",
+          "allOf" : [ {
+            "$ref" : "#/components/schemas/CorrelationTrigger"
+          }, {
+            "type" : "object",
+            "properties" : {
+              "externalPeriod" : {
+                "type" : "integer",
+                "format" : "int64"
+              },
+              "externalOffset" : {
+                "type" : "integer",
+                "format" : "int64"
+              },
+              "internalPeriod" : {
+                "type" : "integer",
+                "format" : "int64"
+              },
+              "internalOffset" : {
+                "type" : "integer",
+                "format" : "int64"
+              }
+            }
+          } ]
+        },
+        "CorrelationTriggerGradient" : {
+          "type" : "object",
+          "allOf" : [ {
+            "$ref" : "#/components/schemas/CorrelationTrigger"
+          }, {
+            "type" : "object",
+            "properties" : {
+              "threshold" : {
+                "type" : "integer",
+                "format" : "int32"
+              },
+              "absolute" : {
+                "type" : "boolean"
+              },
+              "aggregationColumn" : {
+                "type" : "array",
+                "items" : {
+                  "type" : "string"
+                }
+              }
+            }
+          } ]
+        },
+        "CorrelationTriggerLow" : {
+          "type" : "object",
+          "allOf" : [ {
+            "$ref" : "#/components/schemas/CorrelationTrigger"
+          }, {
+            "type" : "object",
+            "properties" : {
+              "period" : {
+                "type" : "integer",
+                "format" : "int64"
+              },
+              "threshold" : {
+                "type" : "integer",
+                "format" : "int32"
+              }
+            }
+          } ]
+        },
+        "CorrelationTriggerRolling" : {
+          "type" : "object",
+          "allOf" : [ {
+            "$ref" : "#/components/schemas/CorrelationTrigger"
+          }, {
+            "type" : "object",
+            "properties" : {
+              "period" : {
+                "type" : "integer",
+                "format" : "int64"
+              },
+              "backPeriod" : {
+                "type" : "integer",
+                "format" : "int64"
+              }
+            }
+          } ]
+        },
+        "CorrelationTriggerSeveral" : {
+          "type" : "object",
+          "allOf" : [ {
+            "$ref" : "#/components/schemas/CorrelationTrigger"
+          }, {
+            "type" : "object",
+            "properties" : {
+              "period" : {
+                "type" : "integer",
+                "format" : "int64"
+              },
+              "threshold" : {
+                "type" : "integer",
+                "format" : "int32"
+              },
+              "keys" : {
+                "type" : "array",
+                "items" : {
+                  "type" : "string"
+                }
+              }
+            }
+          } ]
+        },
+        "Entity" : {
+          "type" : "object",
+          "properties" : {
+            "id" : {
+              "type" : "string"
+            },
+            "hostname" : {
+              "type" : "string"
+            },
+            "url" : {
+              "type" : "string"
+            },
+            "ip" : {
+              "type" : "string"
+            },
+            "mac" : {
+              "type" : "string"
+            },
+            "name" : {
+              "type" : "string"
+            },
+            "location" : {
+              "$ref" : "#/components/schemas/EntityLocation"
+            },
+            "email" : {
+              "type" : "string"
+            },
+            "windowsDomain" : {
+              "type" : "string"
+            },
+            "account" : {
+              "type" : "string"
+            },
+            "hash" : {
+              "type" : "string"
+            },
+            "impact" : {
+              "type" : "string"
+            },
+            "creationDate" : {
+              "type" : "integer",
+              "format" : "int64"
+            },
+            "modificationDate" : {
+              "type" : "integer",
+              "format" : "int64"
+            },
+            "json" : {
+              "type" : "string"
+            },
+            "domain" : {
+              "type" : "string"
+            },
+            "extraDataMaps" : {
+              "type" : "object",
+              "additionalProperties" : {
+                "type" : "string"
+              }
+            },
+            "entityType" : {
+              "type" : "string",
+              "enum" : [ "SOURCEIP", "DSTIP", "SOURCEDOMAIN", "DSTDOMAIN", "SOURCEHOST", "DSTHOST", "SOURCESYSTEMLOCATIONCOUNTRY", "SOURCESYSTEMLOCATIONCITY", "SOURCESYSTEMLOCATIONSTATE", "SOURCESYSTEMLOCATIONLAT", "SOURCESYSTEMLOCATIONLON", "DSTLOCATION", "SOURCEUSER", "DSTUSER", "SOURCEUSERDOMAIN", "DSTUSERDOMAIN", "SOURCEUSERNAME", "DSTUSERNAME", "SOURCEURL", "DSTURL", "SOURCEMAC", "DSTMAC", "SOURCEEMAIL", "DSTEMAIL", "HASH" ]
+            },
+            "entitySuperTypes" : {
+              "uniqueItems" : true,
+              "type" : "array",
+              "items" : {
+                "type" : "string",
+                "enum" : [ "DOMAIN", "URL", "IP", "MAC", "USER", "LOCATION", "EMAIL", "HASH", "HOSTNAME", "OTHER" ]
+              }
+            },
+            "entityFamily" : {
+              "type" : "string",
+              "enum" : [ "SYSTEM", "USER", "OTHER" ]
+            },
+            "direction" : {
+              "type" : "string",
+              "enum" : [ "NONE", "SOURCE", "DESTINATION" ]
+            },
+            "internalEntity" : {
+              "type" : "boolean"
+            }
+          }
+        },
+        "EntityLocation" : {
+          "type" : "object",
+          "properties" : {
+            "locationCountry" : {
+              "type" : "string"
+            },
+            "locationCity" : {
+              "type" : "string"
+            },
+            "locationState" : {
+              "type" : "string"
+            },
+            "locationLat" : {
+              "type" : "number",
+              "format" : "double"
+            },
+            "locationLon" : {
+              "type" : "number",
+              "format" : "double"
+            }
+          }
+        },
+        "FunnelStatistics" : {
+          "type" : "object",
+          "properties" : {
+            "total" : {
+              "$ref" : "#/components/schemas/FunnelStatisticsValues"
+            },
+            "types" : {
+              "type" : "object",
+              "additionalProperties" : {
+                "$ref" : "#/components/schemas/FunnelStatisticsValues"
+              }
+            }
+          }
+        },
+        "FunnelStatisticsValues" : {
+          "type" : "object",
+          "properties" : {
+            "total" : {
+              "type" : "integer",
+              "format" : "int32"
+            },
+            "enriched" : {
+              "type" : "integer",
+              "format" : "int32"
+            }
+          }
+        },
+        "Pageable" : {
+          "type" : "object",
+          "properties" : {
+            "pageSize" : {
+              "type" : "integer",
+              "format" : "int32"
+            },
+            "pageNumber" : {
+              "type" : "integer",
+              "format" : "int32"
+            },
+            "sort" : {
+              "$ref" : "#/components/schemas/Sort"
+            },
+            "offset" : {
+              "type" : "integer",
+              "format" : "int32"
+            }
+          }
+        },
+        "Sort" : {
+          "type" : "object"
+        },
+        "AlertSubscriptionUpdate" : {
+          "type" : "object",
+          "properties" : {
+            "correlationId" : {
+              "type" : "string"
+            },
+            "updated" : {
+              "type" : "object",
+              "additionalProperties" : {
+                "type" : "boolean"
+              }
+            }
+          }
+        },
+        "AlertTagsRequest" : {
+          "type" : "object",
+          "properties" : {
+            "alertIds" : {
+              "type" : "array",
+              "items" : {
+                "type" : "string"
+              }
+            },
+            "tags" : {
+              "type" : "array",
+              "items" : {
+                "type" : "string"
+              }
+            }
+          }
+        }
+      },
+      "securitySchemes" : {
+        "standAloneToken" : {
+          "type" : "apiKey",
+          "description" : "The authentication schema requires one header in the request called 'standAloneToken' <br> ",
+          "name" : "standAloneToken",
+          "in" : "header"
+        }
+      }
+    }
+  }
