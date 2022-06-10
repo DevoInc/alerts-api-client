@@ -1,19 +1,17 @@
 # Alerts API client
 
-Devo Alerts API Client is a client for [Devo Alerts API](https://docs.devo.com/confluence/ndt/v7.9.0/api-reference/alerting-api) writed in TypeScript.
-
-This client use the version one (v1) Alerts API available.
+Devo Alerts API Client is a client for [Devo Alerts API](https://docs.devo.com/space/latest/95128644/Alerts%20API) writed in TypeScript.
 
 ## Requirements
 
-- node > 14
-- npm > 7
+- node > 16
+- npm > 8
 
-> **_NOTE:_**The clients was developed and test using _node v14.18.1_ and _npm v7.24.2_
+> **_NOTE:_**The clients was developed and test using _node v16.15.1_ and _npm v8.11.0_
 
 ## Getting started
 
-### Instalation
+### Installation
 
 Use one of those ways to use the Alerts API Client.
 
@@ -49,66 +47,103 @@ npm install --save /path/to/alerts-api-client
 
 ### Using the client
 
-You can use the client by importing one of the specific class (_Alert_ or _AlertsDefinition_) according to the use you want to give it or by importing the class _AlertsAPIClient_ that allows all endpoints.
-
-Using async/await:
+Prior to instantiate the client, you need to create a class which implements the IConfig interface, for example, in this example we create a class called AuthConfig:
 
 ```js
-import { AlertDefinition } from '@devoinc/alerts-api-client';
+import { IConfig } from "@devoinc/alerts-api-client";
 
-// define the url that are you using and the token created.
-const url = 'https://api-us.devo.com/alerts';
-const token = 'my-token-is-this';
+const credentials = require('../../.credentials/tapu.json');
 
-// initialize de Client
-const alertDefs = new AlertDefinition(token, url);
+export class AuthConfig implements IConfig {
+    getAuthorization() {
+      return credentials.token;
+    }
+  }
 
-// get alerts definitions
-const alertDefinitions = await alertDefs.get();
 ```
 
-Or instead of using async/await, you cal also use promises
+Now you can instantiate the client. In the case that you use async/await:
+
+```js
+import { Client } from '@devoinc/alerts-api-client';
+
+// define the url that are you using and the token created.
+const url = 'https://api-us.devo.com/alerts';
+
+const authConfig: AuthConfig = new AuthConfig();
+
+// initialize the Client
+const client = new Client(authConfig, url);
+
+// get alert
+const alertId = 1;
+const alert: Alert = await client.get(alertId, true, true);
+```
+
+Or instead of using async/await, you can also use promises:
 
 ```js
 import { AlertDefinition } from '@devoinc/alerts-api-client';
 
 // define the url that are you using and the token created.
 const url = 'https://api-us.devo.com/alerts';
-const token = 'my-token-is-this';
 
-// initialize de Client
-const alertDefs = new AlertDefinition(token, url);
+const authConfig: AuthConfig = new AuthConfig();
 
-// get alerts definitions
-alertDefs
-  .get()
-  .then((alerts) => {
-    // do something with alerts
+// initialize the Client
+const client = new Client(authConfig, url);
+
+// get alert
+const alertId = 1;
+client
+  .get(alertId, true, true)
+  .then((alert) => {
+    // do something with the alert
   })
   .catch((error) => {
     console.log(error);
   });
 ```
 
-Alternatively, you can use the _AlertsAPIClient_ class:
+## Supported Endpoints
 
-```js
-import { AlertsAPIClient } from '@devoinc/alerts-api-client';
+### Comments
+- addComments
+- deleteComment
+- updateComment
+- updateComments
+- addComment
+- getList
 
-// define the url that are you using and the token created.
-const url = 'https://api-us.devo.com/alerts';
-const token = 'my-token-is-this';
+### Alerts
+- updateStatus
+- updateStatusLists
+- getListByCriterias
+- getListByCriteriasOverview
+- getStatistics
+- listStatus
+- get
 
-// initialize de Client
-const alertsAPIClient = new AlertsAPIClient(token, url);
+### Alert definition
+- getAlerts
+- putAlerts
+- postAlerts
+- deleteAlerts
+- putAlertsBatch
+- postAlertsBatch
+- putAlertStatus
 
-// get alerts definitions
-const alertDefinitions = await alertsAPIClient.alertDefinition.get();
-// get alerts triggered
-const alerts = await alertsAPIClient.alert.get();
-```
+### Tags
+- setTags
+
+## Nswag 
+
+This client has been generated using Nswag. 
+
+Nswag is a dotnet library that takes OpenApi documentation from an existing API and builds a typescript client to consume this at your front-end.
+
+If you are going to regenerate this client be sure you firstly had installed at least [.net core 3.1 runtime](https://dotnet.microsoft.com/en-us/download/dotnet/3.1) in your local machine.
 
 ## Documentation and usage
 
 The documentation of this client is available at [GitHub](https://devoinc.github.io/alerts-api-client/).
-Here you can find which methods are available for _alert_ and _alertDefinition_.
