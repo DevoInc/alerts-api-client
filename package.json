@@ -1,20 +1,7 @@
 {
   "name": "@devoinc/alerts-api-client",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "Typescript client for devo alerts API",
-  "main": "dist/index.js",
-  "scripts": {
-    "nswag": "nswag run nswag/alerts.nswag --core 5.0.5",
-    "build": "npx tsc",
-    "docs": "typedoc --out docs ./src",
-    "eslint": "eslint . --ext .ts"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:DevoInc/alerts-api-client.git"
-  },
-  "author": "Devo Inc.",
-  "license": "MIT",
   "keywords": [
     "devo",
     "api",
@@ -22,16 +9,41 @@
     "alerts",
     "client library"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:DevoInc/alerts-api-client.git"
+  },
+  "license": "MIT",
+  "author": "Devo Inc.",
+  "main": "index.js",
+  "module": "index.esm.js",
+  "types": "index.d.ts",
+  "scripts": {
+    "build": "npm run clean && rollup -c",
+    "watch": "npm run clean && rollup -c -w",
+    "clean": "rimraf dist",
+    "docs": "typedoc --out docs ./src",
+    "eslint": "eslint . --ext .ts",
+    "nswag": "nswag run nswag/alerts.nswag --core 5.0.5"
+  },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^22.0.0",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^13.2.1",
     "@types/isomorphic-fetch": "0.0.35",
-    "isomorphic-fetch": "^3.0.0",
-    "typescript": "^4.6.2",
-    "ts-node": "^10.7.0",
-    "node-fetch": "^3.2.2",
-    "typedoc": "^0.22.13",
     "@typescript-eslint/eslint-plugin": "^5.27.1",
     "@typescript-eslint/parser": "^5.27.1",
-    "eslint": "^8.17.0"
+    "eslint": "^8.17.0",
+    "isomorphic-fetch": "^3.0.0",
+    "node-fetch": "^3.2.2",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.70.2",
+    "rollup-plugin-copy": "^3.4.0",
+    "rollup-plugin-terser": "7.0.2",
+    "rollup-plugin-typescript2": "^0.31.2",
+    "ts-node": "^10.7.0",
+    "typedoc": "^0.22.13",
+    "typescript": "^4.6.2"
   },
   "optionalDependencies": {
     "nswag": "^13.15.10"
