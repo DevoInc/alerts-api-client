@@ -1,6 +1,6 @@
 {
   "name": "@devoinc/alerts-api-client",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Typescript client for devo alerts API",
   "main": "dist/index.js",
   "scripts": {
