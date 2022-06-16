@@ -1,5 +1,4 @@
 import typescript from 'rollup-plugin-typescript2';
-import { terser } from 'rollup-plugin-terser';
 import commonjs from '@rollup/plugin-commonjs';
 import pkg from './package.json';
 import resolve from '@rollup/plugin-node-resolve';
@@ -50,11 +49,6 @@ export default {
                     sourceMap: true,
                     declaration: true,
                 },
-            },
-        }),
-        terser({
-            output: {
-                comments: false,
             },
         }),
         copy({
