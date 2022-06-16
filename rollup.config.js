@@ -44,8 +44,6 @@ export default {
                     '**/*.spec.ts',
                     '**/*.test.ts',
                     'node_modules',
-                    'bower_components',
-                    'jspm_packages',
                     'dist',
                 ],
                 compilerOptions: {
