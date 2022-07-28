@@ -960,7 +960,7 @@ export class Client extends ClientBase implements IClient {
      * @param idFilter (optional) Alert id to filter
      * @param body (optional) 
      */
-    getAlerts(nameFilter: string | undefined, idFilter: string | undefined, body: Pageable | undefined): Promise<AlertDefinition[]> {
+    getAlerts(nameFilter: string | undefined, idFilter: string | undefined, pagination: Pageable | undefined): Promise<AlertDefinition[]> {
         let url_ = this.baseUrl + "/v1/alertDefinitions?";
         if (nameFilter === null)
             throw new Error("The parameter 'nameFilter' cannot be null.");
@@ -970,12 +970,20 @@ export class Client extends ClientBase implements IClient {
             throw new Error("The parameter 'idFilter' cannot be null.");
         else if (idFilter !== undefined)
             url_ += "idFilter=" + encodeURIComponent("" + idFilter) + "&";
+        
+
+        if(pagination) {
+            if(pagination.pageSize != undefined) {
+                url_ += "size=" + pagination.pageSize + "&";
+            }
+            if(pagination.pageNumber != undefined) {
+                url_ += "page=" + pagination.pageNumber + "&";
+            }
+        }
+
         url_ = url_.replace(/[?&]$/, "");
 
-        const content_ = JSON.stringify(body);
-
         let options_: RequestInit = {
-            body: content_,
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
