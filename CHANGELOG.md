@@ -1,5 +1,9 @@
 # Devo Alerts API Client
 
+## v2.0.4
+
+Fix pagination when get alerts
+
 ## v2.0.0
 
 Implement new services provided by Alerts API
